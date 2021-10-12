@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "sourceMap": true,
+        "target": "ES5",
+        "module": "ES2015",
+        "jsx": "react",
+        "moduleResolution": "node",
+        "strict": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "noImplicitAny": false,
+        "lib": [
+            "ES2020",
+            "DOM"
+        ]
+    }
+}

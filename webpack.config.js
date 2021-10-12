@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
     mode: 'development',
     context: path.join(__dirname, "src"),
-    entry: "./index.jsx",
+    entry: "./index.tsx",
     module: {
         rules: [
             {
@@ -17,6 +17,10 @@ module.exports = {
                         }
                     }
                 ]
+            },
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader'
             }
         ]
     },
@@ -31,6 +35,6 @@ module.exports = {
       filename: "index.min.js",
     },
     resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.jsx'],
+        extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
     },
 };
