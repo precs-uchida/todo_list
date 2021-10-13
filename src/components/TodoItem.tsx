@@ -1,8 +1,8 @@
-import React, { MouseEventHandler } from "react";
+import React from "react";
 
 interface Props {
   todo: string;
-  removeClick: MouseEventHandler;
+  removeClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const TodoItem: React.FC<Props> = (props) => {

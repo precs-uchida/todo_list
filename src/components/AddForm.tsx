@@ -1,9 +1,9 @@
-import React, { MouseEventHandler } from "react";
+import React from "react";
 
 interface Props {
   input_todo_text: string;
-  addClick: MouseEventHandler;
-  changeText: React.ChangeEventHandler;
+  addClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  changeText: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const AddForm: React.FC<Props> = (props) => {

@@ -3,7 +3,7 @@ import TodoItem from "./TodoItem";
 
 interface Props {
   todos: string[];
-  removeClick: CallableFunction;
+  removeClick: (index: number) => void;
 }
 
 const TodoList: React.FC<Props> = (props) => {
