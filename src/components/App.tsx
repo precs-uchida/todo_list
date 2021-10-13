@@ -2,60 +2,76 @@ import React from "react";
 import AddForm from "./AddForm";
 import TodoList from "./TodoList";
 
-const App: React.FC = () => {
+interface AppState {
+  input_todo_text: string;
+  todos: string[];
+}
+
+class App extends React.Component<{}, AppState> {
   // 前回todosデータ
-  const strage_todo_data: string | null = localStorage.getItem("todos");
-  const last_time_todos: string[] = strage_todo_data
-    ? JSON.parse(strage_todo_data)
+  strage_todo_data: string | null = localStorage.getItem("todos");
+  last_time_todos: string[] = this.strage_todo_data
+    ? JSON.parse(this.strage_todo_data)
     : [];
 
-  // todoテキストボックス
-  const [input_todo_text, setInputTodoText] = React.useState<string>("");
-  // todoリスト
-  const [todos, setTodos] = React.useState<string[]>(last_time_todos);
-
-  // todoテキストボックス値変更処理
-  const changeText = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setInputTodoText(event.target.value);
+  state: AppState = {
+    input_todo_text: "",
+    todos: this.last_time_todos,
   };
 
-  React.useEffect(() => {
-    // todoが更新されたらlocalStorageへセット
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
+  componentDidUpdate(prevProps) {
+    if (this.state.todos != prevProps.todos) {
+      // todoが更新されたらlocalStorageへセット
+      localStorage.setItem("todos", JSON.stringify(this.state.todos));
+    }
+  }
+
+  // todoテキストボックス値変更処理
+  changeText = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    this.setState({
+      input_todo_text: e.target.value,
+    });
+  };
 
   // 追加ボタン処理
-  const addClick = () => {
-    if (!input_todo_text) {
+  addClick = () => {
+    if (!this.state.input_todo_text) {
       alert("todoを入力してください");
       return;
     }
-    let new_todos: string[] = [...todos];
-    new_todos.push(input_todo_text);
-    setTodos(new_todos);
-    setInputTodoText("");
+    let new_todos: string[] = [...this.state.todos];
+    new_todos.push(this.state.input_todo_text);
+    this.setState({
+      todos: new_todos,
+      input_todo_text: "",
+    });
   };
   // 削除ボタン処理
-  const removeClick = (index: number) => {
-    let new_todos: string[] = [...todos];
+  removeClick = (index: number) => {
+    let new_todos: string[] = [...this.state.todos];
     new_todos.splice(index, 1);
-    setTodos(new_todos);
+    this.setState({
+      todos: new_todos,
+    });
   };
-  return (
-    <div className="container pt-3">
-      <h1>TODOリスト</h1>
-      <div>
-        <AddForm
-          input_todo_text={input_todo_text}
-          changeText={changeText}
-          addClick={addClick}
-        />
+
+  render() {
+    return (
+      <div className="container pt-3">
+        <h1>TODOリスト</h1>
+        <div>
+          <AddForm
+            input_todo_text={this.state.input_todo_text}
+            changeText={this.changeText}
+            addClick={this.addClick}
+          />
+        </div>
+        <div className="mt-2">
+          <TodoList todos={this.state.todos} removeClick={this.removeClick} />
+        </div>
       </div>
-      <div className="mt-2">
-        <TodoList todos={todos} removeClick={removeClick} />
-      </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default App;
