@@ -56,18 +56,19 @@ class App extends React.Component<{}, AppState> {
   };
 
   render() {
+    const { input_todo_text, todos } = this.state;
     return (
       <div className="container pt-3">
         <h1>TODOリスト</h1>
         <div>
           <AddForm
-            input_todo_text={this.state.input_todo_text}
+            input_todo_text={input_todo_text}
             changeText={this.changeText}
             addClick={this.addClick}
           />
         </div>
         <div className="mt-2">
-          <TodoList todos={this.state.todos} removeClick={this.removeClick} />
+          <TodoList todos={todos} removeClick={this.removeClick} />
         </div>
       </div>
     );
