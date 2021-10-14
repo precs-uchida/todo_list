@@ -1,4 +1,5 @@
 import React from "react";
+import { Textbox, Button, ButtonGroup, FormGroup } from "./Elements";
 
 interface Props {
   input_todo_text: string;
@@ -9,12 +10,19 @@ interface Props {
 const AddForm: React.FC<Props> = (props) => {
   const { input_todo_text, addClick, changeText } = props;
   return (
-    <>
-      <input value={input_todo_text} onChange={changeText} type="text" />
-      <button className="btn btn-sm btn-primary ms-2" onClick={addClick}>
-        追加
-      </button>
-    </>
+    <FormGroup>
+      <ButtonGroup>
+        <Textbox
+          value={input_todo_text}
+          placeholder="今日やることを追加"
+          onChange={changeText}
+          type="text"
+        />
+        <Button className="blue lg" onClick={addClick}>
+          ADD
+        </Button>
+      </ButtonGroup>
+    </FormGroup>
   );
 };
 

@@ -1,0 +1,14 @@
+html,
+body {
+  height: auto;
+  min-height: 100%;
+  margin: 0;
+}
+html {
+  background-color: #8f4df8;
+  font-size: 62.5%;
+}
+
+html * {
+  box-sizing: border-box;
+}

@@ -1,4 +1,5 @@
 import React from "react";
+import { Wapper, Border } from "./Elements";
 import AddForm from "./AddForm";
 import TodoList from "./TodoList";
 
@@ -42,19 +43,15 @@ const App: React.FC = () => {
     setTodos(new_todos);
   };
   return (
-    <div className="container pt-3">
-      <h1>TODOリスト</h1>
-      <div>
-        <AddForm
-          input_todo_text={input_todo_text}
-          changeText={changeText}
-          addClick={addClick}
-        />
-      </div>
-      <div className="mt-2">
-        <TodoList todos={todos} removeClick={removeClick} />
-      </div>
-    </div>
+    <Wapper>
+      <AddForm
+        input_todo_text={input_todo_text}
+        changeText={changeText}
+        addClick={addClick}
+      />
+      <Border />
+      <TodoList todos={todos} removeClick={removeClick} />
+    </Wapper>
   );
 };
 
