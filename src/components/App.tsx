@@ -3,10 +3,21 @@ import AddForm from "./AddForm";
 import TodoList from "./TodoList";
 
 const App: React.FC = () => {
+  // 前回todosデータ
+  const strage_todo_data: string | null = localStorage.getItem("todos");
+  const last_time_todos: string[] = strage_todo_data
+    ? JSON.parse(strage_todo_data)
+    : [];
+
   // todoテキストボックス
   const [input_todo_text, setInputTodoText] = React.useState<string>("");
   // todoリスト
-  const [todos, setTodos] = React.useState<string[]>([]);
+  const [todos, setTodos] = React.useState<string[]>(last_time_todos);
+
+  React.useEffect(() => {
+    // todoが更新されたらlocalStorageへセット
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   // todoテキストボックス値変更処理
   const changeText = (event: React.ChangeEvent<HTMLInputElement>): void => {
