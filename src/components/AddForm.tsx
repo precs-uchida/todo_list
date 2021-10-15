@@ -18,7 +18,7 @@ const AddForm: React.FC<Props> = (props) => {
           onChange={changeText}
           type="text"
         />
-        <Button className="blue lg" onClick={addClick}>
+        <Button color="blue" size="lg" onClick={addClick}>
           ADD
         </Button>
       </ButtonGroup>

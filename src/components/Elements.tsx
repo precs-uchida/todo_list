@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const light_purple = "#b183fa";
 const blue = "#4db7fe";
@@ -15,24 +15,28 @@ export const Wapper = styled.div`
 export const FormGroup = styled.div`
   background-color: ${light_purple};
   border-radius: 0.4rem;
-  & > * {
-    padding: 0.8rem;
-  }
+  padding: 0.8rem;
 `;
 
-export const Button = styled.button`
+export const Button = styled.button<{ color?: "blue"; size?: "lg" }>`
   border-radius: 0.4rem;
   border: none;
   background-color: transparent;
   cursor: pointer;
-  &.blue {
-    background-color: ${blue};
-    color: ${white};
-  }
-  &.lg {
-    padding: 0 2rem;
-    font-size: 1.6rem;
-  }
+
+  ${(props) =>
+    props.size === "lg" &&
+    css`
+      padding: 0 2rem;
+      font-size: 1.6rem;
+    `}
+
+  ${(props) =>
+    props.color === "blue" &&
+    css`
+      background-color: ${blue};
+      color: ${white};
+    `}
 `;
 
 export const Textbox = styled.input`
@@ -58,13 +62,13 @@ export const ButtonGroup = styled.div`
   }
 `;
 
-export const Border = styled.hr` 
-  border: none; 
+export const Border = styled.hr`
+  border: none;
   background-color: ${light_purple};
-  height: 0.2rem; 
+  height: 0.2rem;
   opacity: 1;
   width: 8rem;
-  margin 3rem auto;
+  margin: 3rem auto;
 `;
 
 export const ListGroup = styled.ul`
@@ -79,8 +83,10 @@ export const ListGroup = styled.ul`
 
 export const ListGroupItem = styled.li`
   display: flex;
-  :not(:last-child) {
-    border-bottom: 1px solid ${light_gray};
+  border-bottom: 1px solid ${light_gray};
+
+  &:last-of-type {
+    border-bottom: 0;
   }
 `;
 
