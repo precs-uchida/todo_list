@@ -2,18 +2,19 @@ import React from "react";
 import { Wapper, Border } from "./Elements";
 import AddForm from "./AddForm";
 import TodoList from "./TodoList";
+import { Todo } from "./types/Todo";
 
 const App: React.FC = () => {
   // 前回todosデータ
   const strage_todo_data: string | null = localStorage.getItem("todos");
-  const last_time_todos: string[] = strage_todo_data
+  const last_time_todos: Todo[] = strage_todo_data
     ? JSON.parse(strage_todo_data)
     : [];
 
   // todoテキストボックス
   const [input_todo_text, setInputTodoText] = React.useState<string>("");
   // todoリスト
-  const [todos, setTodos] = React.useState<string[]>(last_time_todos);
+  const [todos, setTodos] = React.useState<Todo[]>(last_time_todos);
 
   React.useEffect(() => {
     // todoが更新されたらlocalStorageへセット
@@ -25,20 +26,31 @@ const App: React.FC = () => {
     setInputTodoText(event.target.value);
   };
 
+  // todoチェックボックス値変更処理
+  const changeCheck = (index: number): void => {
+    let new_todos = [...todos];
+    new_todos[index].done = !new_todos[index].done;
+    setTodos(new_todos);
+  };
+
   // 追加ボタン処理
   const addClick = () => {
     if (!input_todo_text) {
       alert("todoを入力してください");
       return;
     }
-    let new_todos: string[] = [...todos];
-    new_todos.push(input_todo_text);
+    const add_todo: Todo = {
+      title: input_todo_text,
+      done: false,
+    };
+    let new_todos: Todo[] = [...todos];
+    new_todos.push(add_todo);
     setTodos(new_todos);
     setInputTodoText("");
   };
   // 削除ボタン処理
   const removeClick = (index: number) => {
-    let new_todos: string[] = [...todos];
+    let new_todos: Todo[] = [...todos];
     new_todos.splice(index, 1);
     setTodos(new_todos);
   };
@@ -50,7 +62,11 @@ const App: React.FC = () => {
         addClick={addClick}
       />
       <Border />
-      <TodoList todos={todos} removeClick={removeClick} />
+      <TodoList
+        todos={todos}
+        changeCheck={changeCheck}
+        removeClick={removeClick}
+      />
     </Wapper>
   );
 };

@@ -1,26 +1,29 @@
 import React from "react";
-import { Button, TodoTr, TodoTd, Label, CheckBox } from "./Elements";
+import { Button, ListGroupItem, Label, CheckBox } from "./Elements";
+import { Todo } from "./types/Todo";
 
 interface Props {
   index: number;
-  todo: string;
+  todo: Todo;
+  changeCheck: () => void;
   removeClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const TodoItem: React.FC<Props> = (props) => {
-  const { index, todo, removeClick } = props;
+  const { index, todo, changeCheck, removeClick } = props;
   return (
-    <TodoTr>
-      <TodoTd width="10">
-        <CheckBox id={`todo_${index}`} type="checkbox" />
-      </TodoTd>
-      <TodoTd>
-        <Label htmlFor={`todo_${index}`}>{todo}</Label>
-      </TodoTd>
-      <TodoTd width="10">
-        <Button onClick={removeClick}>🗑</Button>
-      </TodoTd>
-    </TodoTr>
+    <ListGroupItem>
+      <Label htmlFor={`todo_${index}`}>
+        <CheckBox
+          id={`todo_${index}`}
+          type="checkbox"
+          checked={todo.done}
+          onChange={changeCheck}
+        />
+        {todo.title}
+      </Label>
+      <Button onClick={removeClick}>🗑</Button>
+    </ListGroupItem>
   );
 };
 

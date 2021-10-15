@@ -24,6 +24,7 @@ export const Button = styled.button`
   border-radius: 0.4rem;
   border: none;
   background-color: transparent;
+  cursor: pointer;
   &.blue {
     background-color: ${blue};
     color: ${white};
@@ -66,31 +67,30 @@ export const Border = styled.hr`
   margin 3rem auto;
 `;
 
-export const TodoTable = styled.table`
+export const ListGroup = styled.ul`
   width: 100%;
   background-color: ${white};
   color: ${gray};
   list-style: none;
   border-radius: 0.4rem;
   padding: 1rem;
-  border-spacing: 0px;
   font-size: 1.6rem;
 `;
 
-export const TodoTr = styled.tr`
-  :not(:last-child) td {
+export const ListGroupItem = styled.li`
+  display: flex;
+  :not(:last-child) {
     border-bottom: 1px solid ${light_gray};
   }
-`;
-
-export const TodoTd = styled.td`
-  padding: 1rem;
-  width: ${(props) => (props.width ? props.width + "px" : "auto")};
 `;
 
 export const Label = styled.label`
   width: 100%;
   display: block;
+  padding: 1rem;
+  cursor: pointer;
 `;
 
-export const CheckBox = styled.input``;
+export const CheckBox = styled.input`
+  margin-right: 2rem;
+`;

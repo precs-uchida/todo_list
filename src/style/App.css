@@ -12,3 +12,8 @@ html {
 html * {
   box-sizing: border-box;
 }
+
+ul {
+  padding: initial;
+  margin: initial;
+}
