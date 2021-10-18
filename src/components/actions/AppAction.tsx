@@ -1,32 +1,38 @@
-export const ActionNames = {
-  addTodo: "ADD_TODO",
-  removeTodo: "REMOVE_TODO",
-  switchDone: "SWITCH_DONE",
-  changeText: "CHANGE_TEXT",
-};
+import {
+  AddAction,
+  ChangeTextAction,
+  RemoveAction,
+  SwitchDoneAction,
+} from "../reducers/AppReducer";
+
+export type ActionType =
+  | "ADD_TODO"
+  | "REMOVE_TODO"
+  | "SWITCH_DONE"
+  | "CHANGE_TEXT";
 
 const Actions = {
-  addTodo: (title: string) => {
+  addTodo: (title: string): AddAction => {
     return {
-      type: ActionNames.addTodo,
+      type: "ADD_TODO",
       payload: title,
     };
   },
-  removeTodo: (index: number) => {
+  removeTodo: (index: number): RemoveAction => {
     return {
-      type: ActionNames.removeTodo,
+      type: "REMOVE_TODO",
       payload: index,
     };
   },
-  switchDone: (index: number) => {
+  switchDone: (index: number): SwitchDoneAction => {
     return {
-      type: ActionNames.switchDone,
+      type: "SWITCH_DONE",
       payload: index,
     };
   },
-  changeText: (input_text: string) => {
+  changeText: (input_text: string): ChangeTextAction => {
     return {
-      type: ActionNames.changeText,
+      type: "CHANGE_TEXT",
       payload: input_text,
     };
   },
