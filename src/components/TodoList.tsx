@@ -5,12 +5,12 @@ import TodoItem from "./TodoItem";
 
 interface Props {
   todos: Todo[];
-  removeClick: (index: number) => void;
-  changeCheck: (index: number) => void;
+  handleRemoveTodo: (index: number) => void;
+  handleSwitchDone: (index: number) => void;
 }
 
 const TodoList: React.FC<Props> = (props) => {
-  const { todos, changeCheck, removeClick } = props;
+  const { todos, handleRemoveTodo, handleSwitchDone } = props;
 
   return (
     <FormGroup>
@@ -22,8 +22,8 @@ const TodoList: React.FC<Props> = (props) => {
                 key={index}
                 index={index}
                 todo={todo}
-                changeCheck={() => changeCheck(index)}
-                removeClick={() => removeClick(index)}
+                changeCheck={() => handleSwitchDone(index)}
+                removeClick={() => handleRemoveTodo(index)}
               />
             ))
           ) : (

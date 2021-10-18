@@ -3,12 +3,27 @@ import { Textbox, Button, ButtonGroup, FormGroup } from "./Elements";
 
 interface Props {
   input_todo_text: string;
-  addClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  changeText: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChangeText: (input_text: string) => void;
+  handleAddTodo: (input_todo_text: string) => void;
 }
 
 const AddForm: React.FC<Props> = (props) => {
-  const { input_todo_text, addClick, changeText } = props;
+  const { input_todo_text, handleChangeText, handleAddTodo } = props;
+
+  // todoテキストボックス値変更処理
+  const changeText = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    handleChangeText(event.target.value);
+  };
+
+  // 追加ボタン処理
+  const addClick = (): void => {
+    if (!input_todo_text) {
+      alert("todoを入力してください");
+      return;
+    }
+    handleAddTodo(input_todo_text);
+  };
+
   return (
     <FormGroup>
       <ButtonGroup>

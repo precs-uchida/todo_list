@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
-import App from "../App";
-import Actions from "../actions/AppAction";
-import { Todo } from "../types/Todo";
 import { Dispatch } from "redux";
+import { Todo } from "../types/Todo";
+import AddForm from "../AddForm";
+import Actions from "../actions/AppAction";
 
 interface State {
   input_todo_text: string;
@@ -18,16 +18,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     handleAddTodo: (title: string) => {
       dispatch(Actions.addTodo(title));
     },
-    handleRemoveTodo: (index: number) => {
-      dispatch(Actions.removeTodo(index));
-    },
-    handleSwitchDone: (index: number) => {
-      dispatch(Actions.switchDone(index));
-    },
     handleChangeText: (input_text: string) => {
       dispatch(Actions.changeText(input_text));
     },
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(AddForm);
