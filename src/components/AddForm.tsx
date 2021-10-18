@@ -1,7 +1,7 @@
 import React from "react";
 import { Textbox, Button, ButtonGroup, FormGroup } from "./Elements";
 
-interface Props {
+export interface Props {
   input_todo_text: string;
   handleChangeText: (input_text: string) => void;
   handleAddTodo: (input_todo_text: string) => void;

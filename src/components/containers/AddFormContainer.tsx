@@ -1,19 +1,17 @@
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { Todo } from "../types/Todo";
-import AddForm from "../AddForm";
+import AddForm, { Props } from "../AddForm";
 import Actions from "../actions/AppAction";
 
-interface State {
-  input_todo_text: string;
-  todos: Todo[];
-}
+type State = Pick<Props, "input_todo_text">;
+
+type AddFormDispatch = Pick<Props, "handleAddTodo" | "handleChangeText">;
 
 const mapStateToProps = (state: State) => {
   return state;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch): AddFormDispatch => {
   return {
     handleAddTodo: (title: string) => {
       dispatch(Actions.addTodo(title));

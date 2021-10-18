@@ -1,19 +1,17 @@
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { Todo } from "../types/Todo";
-import TodoList from "../TodoList";
+import TodoList, { Props } from "../TodoList";
 import Actions from "../actions/AppAction";
 
-interface State {
-  input_todo_text: string;
-  todos: Todo[];
-}
+type State = Pick<Props, "todos">;
+
+type TodoListDispatch = Pick<Props, "handleRemoveTodo" | "handleSwitchDone">;
 
 const mapStateToProps = (state: State) => {
   return state;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch): TodoListDispatch => {
   return {
     handleRemoveTodo: (index: number) => {
       dispatch(Actions.removeTodo(index));

@@ -3,7 +3,7 @@ import { FormGroup, ListGroup, ListGroupItem } from "./Elements";
 import { Todo } from "./types/Todo";
 import TodoItem from "./TodoItem";
 
-interface Props {
+export interface Props {
   todos: Todo[];
   handleRemoveTodo: (index: number) => void;
   handleSwitchDone: (index: number) => void;
