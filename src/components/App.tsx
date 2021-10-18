@@ -4,33 +4,33 @@ import AddForm from "./AddForm";
 import TodoList from "./TodoList";
 import { Todo } from "./types/Todo";
 
-const App: React.FC = () => {
-  // 前回todosデータ
-  const strage_todo_data: string | null = localStorage.getItem("todos");
-  const last_time_todos: Todo[] = strage_todo_data
-    ? JSON.parse(strage_todo_data)
-    : [];
+interface Props {
+  input_todo_text: string;
+  todos: Todo[];
+  handleAddTodo: (value: string) => void;
+  handleRemoveTodo: (value: number) => void;
+  handleSwitchDone: (value: number) => void;
+  handleChangeText: (value: string) => void;
+}
 
-  // todoテキストボックス
-  const [input_todo_text, setInputTodoText] = React.useState<string>("");
-  // todoリスト
-  const [todos, setTodos] = React.useState<Todo[]>(last_time_todos);
-
-  React.useEffect(() => {
-    // todoが更新されたらlocalStorageへセット
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
+const App: React.FC<Props> = (props: Props) => {
+  const {
+    input_todo_text,
+    todos,
+    handleAddTodo,
+    handleRemoveTodo,
+    handleSwitchDone,
+    handleChangeText,
+  } = props;
 
   // todoテキストボックス値変更処理
   const changeText = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setInputTodoText(event.target.value);
+    handleChangeText(event.target.value);
   };
 
   // todoチェックボックス値変更処理
   const changeCheck = (index: number): void => {
-    let new_todos = [...todos];
-    new_todos[index].done = !new_todos[index].done;
-    setTodos(new_todos);
+    handleSwitchDone(index);
   };
 
   // 追加ボタン処理
@@ -39,20 +39,11 @@ const App: React.FC = () => {
       alert("todoを入力してください");
       return;
     }
-    const add_todo: Todo = {
-      title: input_todo_text,
-      done: false,
-    };
-    let new_todos: Todo[] = [...todos];
-    new_todos.push(add_todo);
-    setTodos(new_todos);
-    setInputTodoText("");
+    handleAddTodo(input_todo_text);
   };
   // 削除ボタン処理
   const removeClick = (index: number) => {
-    let new_todos: Todo[] = [...todos];
-    new_todos.splice(index, 1);
-    setTodos(new_todos);
+    handleRemoveTodo(index);
   };
   return (
     <Wapper>
