@@ -1,4 +1,5 @@
 import { fork, put, takeEvery } from "redux-saga/effects";
+import { SetTodosAction } from "../reducers/AppReducer";
 import { Todo } from "../types/Todo";
 
 const initSagas = [fork(initTodos)];
@@ -10,7 +11,7 @@ function* getTodos() {
     ? JSON.parse(strage_todo_data)
     : [];
   // todosをセット
-  yield put({ type: "SET_TODOS", payload: last_time_todos });
+  yield put<SetTodosAction>({ type: "SET_TODOS", payload: last_time_todos });
 }
 
 function* initTodos() {

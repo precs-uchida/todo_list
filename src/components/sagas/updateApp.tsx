@@ -1,10 +1,11 @@
 import { fork, takeEvery, select } from "redux-saga/effects";
+import { Todo } from "../types/Todo";
 
 const updateSagas = [fork(watchUpdateTodo)];
 
 // ローカルストレージにTodoを保存
 function* save_storage() {
-  const { todos } = yield select((state) => state);
+  const { todos }: { todos: Todo[] } = yield select((state) => state);
   localStorage.setItem("todos", JSON.stringify(todos));
 }
 
