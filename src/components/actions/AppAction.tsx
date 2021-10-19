@@ -1,17 +1,25 @@
 import {
   AddAction,
   ChangeTextAction,
+  InitAction,
   RemoveAction,
   SwitchDoneAction,
 } from "../reducers/AppReducer";
 
 export type ActionType =
+  | "INIT"
+  | "SET_TODOS"
   | "ADD_TODO"
   | "REMOVE_TODO"
   | "SWITCH_DONE"
   | "CHANGE_TEXT";
 
 const Actions = {
+  init: (): InitAction => {
+    return {
+      type: "INIT",
+    };
+  },
   addTodo: (title: string): AddAction => {
     return {
       type: "ADD_TODO",

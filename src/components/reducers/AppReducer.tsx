@@ -9,6 +9,14 @@ interface State {
 interface BaseAction {
   type: ActionType;
 }
+export interface InitAction extends BaseAction {
+  type: "INIT";
+}
+
+export interface SetTodosAction extends BaseAction {
+  type: "SET_TODOS";
+  payload: Todo[];
+}
 
 export interface AddAction extends BaseAction {
   type: "ADD_TODO";
@@ -30,28 +38,31 @@ export interface ChangeTextAction extends BaseAction {
   payload: string;
 }
 
-type Actions = AddAction | RemoveAction | SwitchDoneAction | ChangeTextAction;
-
-// 前回todosデータ
-const strage_todo_data: string | null = localStorage.getItem("todos");
-const last_time_todos: Todo[] = strage_todo_data
-  ? JSON.parse(strage_todo_data)
-  : [];
+type Actions =
+  | InitAction
+  | SetTodosAction
+  | AddAction
+  | RemoveAction
+  | SwitchDoneAction
+  | ChangeTextAction;
 
 // 初期値
 const initialState: State = {
-  todos: last_time_todos,
+  todos: [],
   input_todo_text: "",
-};
-
-// ローカルストレージにTodoを保存
-const save_storage = (todos: Todo[]) => {
-  localStorage.setItem("todos", JSON.stringify(todos));
 };
 
 // Reducer処理
 const reducer = (state: State = initialState, action: Actions) => {
   switch (action.type) {
+    // 初期化
+    case "INIT": {
+      return { ...state };
+    }
+    // 受け取ったTodosをセット
+    case "SET_TODOS": {
+      return { ...state, todos: action.payload };
+    }
     // 追加処理
     case "ADD_TODO": {
       let new_todos: Todo[] = [...state.todos];
@@ -60,21 +71,18 @@ const reducer = (state: State = initialState, action: Actions) => {
         done: false,
       };
       new_todos.push(add_todo);
-      save_storage(new_todos);
       return { todos: new_todos, input_todo_text: "" };
     }
     // 削除処理
     case "REMOVE_TODO": {
       let new_todos: Todo[] = [...state.todos];
       new_todos.splice(action.payload, 1);
-      save_storage(new_todos);
       return { todos: new_todos, input_todo_text: state.input_todo_text };
     }
     // チェック処理
     case "SWITCH_DONE": {
       let new_todos = [...state.todos];
       new_todos[action.payload].done = !new_todos[action.payload].done;
-      save_storage(new_todos);
       return { todos: new_todos, input_todo_text: state.input_todo_text };
     }
     // テキスト変更処理

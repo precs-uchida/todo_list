@@ -3,7 +3,13 @@ import { Wapper, Border } from "./Elements";
 import AddForm from "./containers/AddFormContainer";
 import TodoList from "./containers/TodoListContainer";
 
-const App: React.FC = () => {
+export interface AppProps {
+  init: () => void;
+}
+
+const App: React.FC<AppProps> = (props: AppProps) => {
+  // 初期化処理
+  props.init();
   return (
     <Wapper>
       <AddForm />
